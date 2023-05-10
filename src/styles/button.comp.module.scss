@@ -1,0 +1,11 @@
+@import './theme.scss';
+
+.button {
+    // Remove all default button styles
+    all: unset;
+
+    background-color: $accent-color;
+    border: $border;
+    padding: 15px 30px;
+    text-align: center;
+}

@@ -1,0 +1,84 @@
+@import './theme.scss';
+
+.header {
+    // Page layout mixin
+    @include page-layout;
+
+    position: relative;
+
+    .innerHeader {
+        padding: 25px;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .logo {
+            // Make sure that the image is properly sized
+            object-fit: cover;
+            height: 100%;
+        }
+
+        .content {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mobileContent {
+            display: none; // Flips to block when in mobile view
+            position: absolute;
+            margin-left: -15px;
+            margin-right: -15px;
+            width: calc(100vw - 30px);
+            padding: 15px;
+            padding-top: 115px;
+            padding-bottom: 25px;
+            z-index: -1;
+            flex-direction: column;
+            // gap: 15px;
+
+            button {
+                margin-top: 30px;
+                width: calc(100% - 60px);
+            }
+        }
+
+        .menuButton {
+            display: none;
+            cursor: pointer;
+            padding: 5px;
+            padding-right: 8px;
+        }
+    }
+}
+
+// When window is less than 768px wide
+@media (max-width: 768px) {
+    .header {
+        @include page-layout-mobile;
+
+        .innerHeader {
+            // flex-direction: column;
+            gap: 25px;
+            padding-left: 15px;
+            padding-right: 15px;
+            margin-left: -15px;
+            margin-right: -15px;
+            background-color: $dark-bg;
+
+            .content {
+                display: none;
+            }
+
+            .mobileContent {
+                display: flex;
+            }
+
+            .menuButton {
+                display: block;
+            }
+        }
+    }
+}

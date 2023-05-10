@@ -1,0 +1,51 @@
+// Colours
+$light-bg: #fff;
+$light-color: #1d1d1d;
+$dark-color: #fff;
+$dark-bg: #1d1d1d;
+$accent-color: #67cda8;
+$accent-active-color: #15ee9f;
+$border-color: #f2f2f2;
+
+$max-width: 1440px; // This is the conent width
+
+// Borders and drop shadows
+$border: 2px soild $border-color;
+
+// Defualt backgorund blur fiter
+$blur: blur(30px);
+
+// Fonts
+// Ubuntu Mono
+@font-face {
+    font-family: 'Ubuntu Mono Regular';
+    src: url('/fonts/UbuntuMono-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+// Inter
+@font-face {
+    font-family: 'Inter Black';
+    src: url('/fonts/Inter-Black.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+// Mixin for the default page layout
+@mixin page-layout {
+    max-width: $max-width;
+    margin: 0 auto;
+    padding: 0;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+// Mixin for the default page layout in mobile
+@mixin page-layout-mobile {
+    max-width: $max-width;
+    margin: 0 auto;
+    padding: 0;
+    padding-left: 15px;
+    padding-right: 15px;
+}
