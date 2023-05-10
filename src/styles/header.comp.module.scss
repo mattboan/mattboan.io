@@ -8,7 +8,6 @@
 
     .innerHeader {
         padding: 25px;
-
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -17,6 +16,7 @@
             // Make sure that the image is properly sized
             object-fit: cover;
             height: 100%;
+            cursor: pointer;
         }
 
         .content {

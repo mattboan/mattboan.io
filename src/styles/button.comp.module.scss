@@ -8,4 +8,18 @@
     border: $border;
     padding: 15px 30px;
     text-align: center;
+    box-shadow: $light-bg 0px 0px;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: $light-bg 2px 2px;
+    }
+
+    &:active {
+        background-color: $accent-active-color;
+        transform: translate(0, 0);
+        box-shadow: $light-bg 0px 0px;
+    }
 }
