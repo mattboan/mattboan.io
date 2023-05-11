@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Header } from '@/comps/Header';
 import Link from 'next/link';
 import { Button } from '@/comps/Button';
+import { Hero } from '@/comps/Hero';
 
 export default function Home() {
     return (
@@ -32,6 +33,10 @@ export default function Home() {
                 </Header>
 
                 {/* Hero Section */}
+                <Hero>
+                    <h1>We fill the <span id="accent">void</span> in your digital presence.</h1>
+                    <Image className={styles.heroImage} width={615} height={1035} src="/img/hero.png" alt="Hero Image" />
+                </Hero>
 
                 {/* Footer */}
             </main>

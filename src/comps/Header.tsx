@@ -14,7 +14,7 @@ interface Props {
  */
 export const Header = (props: Props) => {
     const router = useRouter();
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
 
     // Watch the open state and update the body overflow
     useEffect(() => {
