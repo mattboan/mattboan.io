@@ -11,7 +11,9 @@
 
 @media (max-width: $mobile-bp) {
     .inline_form {
-        width: calc(100% - 30px);
+        width: calc(100%);
+        flex-direction: column;
+        gap: 15px;
 
         input {
             width: unset;
