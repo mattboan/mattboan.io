@@ -10,6 +10,14 @@
     grid-gap: 30px;
 }
 
+.read_more {
+    align-self: center;
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    margin-top: 30px;
+}
+
 // In tablet view
 @media (max-width: $tablet-bp) {
     .card_list {
