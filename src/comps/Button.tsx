@@ -10,6 +10,7 @@ interface Props {
 export const Button = (props: Props) => {
     return (
         <button
+            id={props.id}
             className={styles.button}
             onClick={() => props.onClick && props.onClick()}
         >

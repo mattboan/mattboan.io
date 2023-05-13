@@ -26,8 +26,26 @@ p {
     line-height: 120%;
 }
 
+input {
+    font-family: 'Ubuntu Mono Regular', monospace;
+    font-size: 1rem;
+    outline: none;
+}
+
 #accent {
     color: #67cda8;
+}
+
+#black-btn {
+    background-color: #1d1d1d;
+    color: #fff;
+}
+
+#black-btn:hover {
+    transform: none;
+    box-shadow: none;
+    background-color: #fff;
+    color: #1d1d1d;
 }
 
 ::-moz-selection {

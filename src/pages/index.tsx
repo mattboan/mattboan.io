@@ -10,6 +10,7 @@ import { CardList } from '@/comps/CardList';
 import { ProjectCard } from '@/comps/ProjectCard';
 import { Blog } from '@/db/blog.def';
 import { BlogCard } from '@/comps/BlogCard';
+import { SubscribeCta } from '@/comps/SubscribeCta';
 
 function Home({ projects, blogs }: { projects: Project[]; blogs: Blog[] }) {
     console.log(projects);
@@ -65,6 +66,9 @@ function Home({ projects, blogs }: { projects: Project[]; blogs: Blog[] }) {
                         <BlogCard key={blog.id} blog={blog} />
                     ))}
                 </CardList>
+
+                {/* Call to action */}
+                <SubscribeCta />
 
                 {/* Footer */}
             </main>

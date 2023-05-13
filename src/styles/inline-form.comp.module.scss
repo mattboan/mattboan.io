@@ -1,0 +1,9 @@
+@import './theme.scss';
+
+.inline_form {
+    display: flex;
+
+    input {
+        width: 300px;
+    }
+}

@@ -1,0 +1,24 @@
+@import './theme.scss';
+
+.sub_cta {
+    background-color: $accent-color;
+    color: $light-color;
+
+    h1 {
+        color: $light-color;
+        margin: 0px;
+    }
+
+    margin: 0 30px;
+    padding: 60px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+
+    span {
+        margin-top: 5px; // Removes the parent div height resize effect after clicking
+        border-radius: 0 !important; // Little hack to get the PropergateLoader to be squares instead of dots
+    }
+}
