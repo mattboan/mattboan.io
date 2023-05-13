@@ -1,0 +1,46 @@
+@import './theme.scss';
+
+.project_card {
+    // background-color: red;
+
+    cursor: pointer;
+
+    img {
+        width: 100%;
+        height: auto;
+        transition: all 0.2s ease-in-out;
+        border: none;
+        outline: none;
+    }
+
+    h3,
+    p {
+        transition: all 0.2s ease-in-out;
+    }
+
+    &:hover,
+    &:active {
+        h3,
+        p {
+            text-decoration: underline;
+            color: $accent-color;
+        }
+
+        img {
+            transform: translate(-5px, -5px);
+            box-shadow: $accent-color 5px 5px;
+        }
+    }
+
+    &:active {
+        h3,
+        p {
+            color: $accent-active-color;
+        }
+
+        img {
+            transform: translate(0, 0);
+            box-shadow: $light-bg 0px 0px;
+        }
+    }
+}

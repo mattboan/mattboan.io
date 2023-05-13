@@ -23,11 +23,16 @@
     }
 }
 
-
 .heroImage {
     width: 100%;
     height: auto;
     object-fit: contain;
+    padding: 30px;
+}
+
+.hero_content {
+    display: flex;
+    flex-direction: column;
 }
 
 @media (max-width: 768px) {

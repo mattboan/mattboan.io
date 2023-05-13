@@ -1,12 +1,17 @@
 import styles from '@/styles/Home.module.scss';
 import Head from 'next/head';
-import Image from 'next/image';
 import { Header } from '@/comps/Header';
 import Link from 'next/link';
 import { Button } from '@/comps/Button';
 import { Hero } from '@/comps/Hero';
+import { client } from '@/utils/supa';
+import { Project } from '@/db/project.def';
+import { CardList } from '@/comps/CardList';
+import { ProjectCard } from '@/comps/ProjectCard';
 
-export default function Home() {
+function Home({ projects }: { projects: Project[] }) {
+    console.log(projects);
+
     return (
         <>
             <Head>
@@ -34,12 +39,40 @@ export default function Home() {
 
                 {/* Hero Section */}
                 <Hero>
-                    <h1>We fill the <span id="accent">void</span> in your digital presence.</h1>
-                    <Image className={styles.heroImage} width={615} height={1035} src="/img/hero.png" alt="Hero Image" />
+                    <h1>
+                        Filling the <span id="accent">void</span>, one line of
+                        code at a time.
+                    </h1>
+                    <p>
+                        Passionate Developer | Driven by Innovation and Endless
+                        Curiosity.
+                    </p>
+                    <Button>Let's Connect</Button>
                 </Hero>
+
+                {/* List of 6 projects I'm working on */}
+                <CardList heading="Latest Projects">
+                    {projects.map((project: Project) => (
+                        <ProjectCard key={project.id} project={project} />
+                    ))}
+                </CardList>
+
+                {/* List of 6 blogs I'm working on */}
 
                 {/* Footer */}
             </main>
         </>
     );
 }
+
+export async function getStaticProps() {
+    const { data } = await client.from('Project').select('*').limit(6);
+
+    return {
+        props: {
+            projects: data,
+        },
+    };
+}
+
+export default Home;

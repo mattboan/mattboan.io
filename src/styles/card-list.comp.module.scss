@@ -1,0 +1,29 @@
+@import './theme.scss';
+
+.card_wrapper {
+    padding: 0px 30px;
+}
+
+.card_list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 30px;
+}
+
+// In tablet view
+@media (max-width: $tablet-bp) {
+    .card_list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+// In mobile view
+@media (max-width: $mobile-bp) {
+    .card_wrapper {
+        padding: 0 0;
+    }
+
+    .card_list {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}

@@ -1,0 +1,15 @@
+@import './theme.scss';
+
+.section {
+    @include page-layout;
+
+    margin: 120px auto;
+}
+
+// In mobile view
+@media (max-width: $mobile-bp) {
+    .section {
+        @include page-layout-mobile;
+        margin: 60px auto;
+    }
+}

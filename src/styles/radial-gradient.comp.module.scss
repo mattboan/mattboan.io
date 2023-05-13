@@ -1,0 +1,18 @@
+@import './theme.scss';
+
+.RadialGradient {
+    position: absolute;
+    width: 1998px;
+    height: 1998px;
+    right: 100px;
+    bottom: 100px;
+
+    z-index: -1;
+    background: radial-gradient(
+        66.67% 66.67% at 50% 50%,
+        rgba(103, 205, 168, 0.38) 0%,
+        rgba(210, 25, 102, 0.1) 49.48%,
+        rgba(217, 217, 217, 0) 100%
+    );
+    opacity: 0.4;
+}
