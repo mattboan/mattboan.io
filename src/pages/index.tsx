@@ -11,10 +11,9 @@ import { ProjectCard } from '@/comps/ProjectCard';
 import { Blog } from '@/db/blog.def';
 import { BlogCard } from '@/comps/BlogCard';
 import { SubscribeCta } from '@/comps/SubscribeCta';
+import { Footer } from '@/comps/Footer';
 
 function Home({ projects, blogs }: { projects: Project[]; blogs: Blog[] }) {
-    console.log(projects);
-
     return (
         <>
             <Head>
@@ -33,7 +32,7 @@ function Home({ projects, blogs }: { projects: Project[]; blogs: Blog[] }) {
                 {/* Header */}
                 <Header logo="/img/logo.png">
                     <div className={styles.headerLinks}>
-                        <Link href="/case-studies">Case Studies</Link>
+                        <Link href="/case-studies">Projects</Link>
                         <Link href="/blog">Blog </Link>
                         <Link href="/about">About </Link>
                     </div>
@@ -71,6 +70,7 @@ function Home({ projects, blogs }: { projects: Project[]; blogs: Blog[] }) {
                 <SubscribeCta />
 
                 {/* Footer */}
+                <Footer />
             </main>
         </>
     );

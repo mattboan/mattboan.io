@@ -5,6 +5,7 @@
     @include page-layout;
 
     position: relative;
+    z-index: 100;
 
     .innerHeader {
         padding: 25px;
@@ -37,7 +38,9 @@
             padding-bottom: 25px;
             z-index: -1;
             flex-direction: column;
-            // gap: 15px;
+            background-color: $dark-bg;
+            border: $border;
+            box-shadow: $box-shadow;
 
             button {
                 margin-top: 30px;

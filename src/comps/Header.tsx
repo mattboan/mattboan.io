@@ -17,13 +17,13 @@ export const Header = (props: Props) => {
     const [open, setOpen] = useState(false);
 
     // Watch the open state and update the body overflow
-    useEffect(() => {
-        if (open) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
-        }
-    }, [open]);
+    // useEffect(() => {
+    //     if (open) {
+    //         document.body.style.overflow = 'hidden';
+    //     } else {
+    //         document.body.style.overflow = '';
+    //     }
+    // }, [open]);
 
     return (
         <header className={styles.header}>
