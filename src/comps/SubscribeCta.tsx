@@ -15,9 +15,10 @@ export const SubscribeCta = () => {
     // Subscribe the user
     const sub = async () => {
         setLoading(true);
+        setError('');
 
         try {
-            const res = await fetch('/api/subscibe', {
+            const res = await fetch('/api/subscribe', {
                 body: JSON.stringify({ email }),
                 headers: { 'Content-Type': 'application/json' },
                 method: 'POST',
