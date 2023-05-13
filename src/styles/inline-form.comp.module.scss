@@ -2,8 +2,19 @@
 
 .inline_form {
     display: flex;
+    justify-content: center;
 
     input {
         width: 300px;
+    }
+}
+
+@media (max-width: $mobile-bp) {
+    .inline_form {
+        width: calc(100% - 30px);
+
+        input {
+            width: unset;
+        }
     }
 }

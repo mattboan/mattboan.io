@@ -22,3 +22,9 @@
         border-radius: 0 !important; // Little hack to get the PropergateLoader to be squares instead of dots
     }
 }
+
+@media (max-width: $mobile-bp) {
+    .sub_cta {
+        margin: 0;
+    }
+}
