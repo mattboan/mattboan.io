@@ -17,7 +17,7 @@ export const ProjectCard = ({ project }: { project: Project }) => {
                 alt={'Project image'}
             />
             <h3>{project.heading}</h3>
-            <p>{project.sub_heading}</p>
+            <p>{project.overview}</p>
         </div>
     );
 };

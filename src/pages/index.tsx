@@ -8,8 +8,10 @@ import { client } from '@/utils/supa';
 import { Project } from '@/db/project.def';
 import { CardList } from '@/comps/CardList';
 import { ProjectCard } from '@/comps/ProjectCard';
+import { Blog } from '@/db/blog.def';
+import { BlogCard } from '@/comps/BlogCard';
 
-function Home({ projects }: { projects: Project[] }) {
+function Home({ projects, blogs }: { projects: Project[]; blogs: Blog[] }) {
     console.log(projects);
 
     return (
@@ -58,6 +60,11 @@ function Home({ projects }: { projects: Project[] }) {
                 </CardList>
 
                 {/* List of 6 blogs I'm working on */}
+                <CardList heading="Latest Blog Posts">
+                    {blogs.map((blog: Blog) => (
+                        <BlogCard key={blog.id} blog={blog} />
+                    ))}
+                </CardList>
 
                 {/* Footer */}
             </main>
@@ -66,11 +73,13 @@ function Home({ projects }: { projects: Project[] }) {
 }
 
 export async function getStaticProps() {
-    const { data } = await client.from('Project').select('*').limit(6);
+    const projects = await client.from('Project').select('*').limit(6);
+    const blogs = await client.from('Blog').select('*').limit(6);
 
     return {
         props: {
-            projects: data,
+            projects: projects.data,
+            blogs: blogs.data,
         },
     };
 }
