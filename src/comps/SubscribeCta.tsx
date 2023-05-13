@@ -14,6 +14,7 @@ export const SubscribeCta = () => {
 
     // Subscribe the user
     const sub = async () => {
+        if (!email || email.length < 4) return;
         setLoading(true);
         setError('');
 
