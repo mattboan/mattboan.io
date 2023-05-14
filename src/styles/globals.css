@@ -32,6 +32,19 @@ input {
     outline: none;
 }
 
+main {
+    min-height: 100vh;
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100vw;
+}
+
+#col-3 {
+    max-width: 66%;
+}
+
 #accent {
     color: #67cda8;
 }

@@ -1,9 +1,10 @@
-@import "./theme.scss";
+@import './theme.scss';
 
 .footer {
     @include page-layout;
     padding: 0 30px;
-    margin-top: 120px;
+    margin-top: auto;
+    width: calc(100% - 60px);
 
     .logo {
         margin-bottom: 15px;
@@ -56,6 +57,8 @@
 @media (max-width: $mobile-bp) {
     .footer {
         @include page-layout-mobile;
+        width: calc(100% - 30px);
+
         margin: 60px auto;
 
         .footer_inner {
@@ -63,7 +66,6 @@
             gap: 60px;
             padding-left: 0;
             padding-right: 0;
-
         }
     }
 }

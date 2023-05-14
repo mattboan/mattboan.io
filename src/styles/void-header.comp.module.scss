@@ -1,0 +1,31 @@
+@import './theme.scss';
+
+.headerLinks {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+
+    a {
+        color: $dark-color;
+        text-decoration: none;
+        transition: color 0.2s ease-in-out;
+
+        &:hover {
+            color: $accent-color;
+            text-decoration: underline;
+        }
+
+        &:active {
+            color: $accent-active-color;
+            transform: translate(0, 0);
+            box-shadow: $light-bg 0px 0px;
+        }
+    }
+}
+
+@media (max-width: $mobile-bp) {
+    .headerLinks {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

@@ -1,0 +1,16 @@
+@import './theme.scss';
+
+.container {
+    padding: 0 30px;
+}
+
+// Mobile breakpoint
+@media (max-width: $mobile-bp) {
+    .container {
+        padding: 0;
+
+        p {
+            max-width: 100% !important;
+        }
+    }
+}
