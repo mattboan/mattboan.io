@@ -4,12 +4,14 @@
     @include page-layout;
 
     margin: 120px auto;
+    width: calc(100% - 60px);
 }
 
 // In mobile view
 @media (max-width: $mobile-bp) {
     .section {
         @include page-layout-mobile;
+        width: calc(100% - 30px);
         margin: 60px auto;
     }
 }
