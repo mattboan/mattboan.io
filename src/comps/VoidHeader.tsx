@@ -10,8 +10,8 @@ export const VoidHeader = () => {
     return (
         <Header logo="/img/logo.png">
             <div className={styles.headerLinks}>
-                <Link href="/case-studies">Projects</Link>
-                <Link href="/blog">Blog </Link>
+                <Link href="/projects">Projects</Link>
+                <Link href="/blogs">Blog </Link>
                 <Link href="/about">About </Link>
             </div>
             <Button>Let's Connect</Button>
