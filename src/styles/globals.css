@@ -26,7 +26,8 @@ p {
     line-height: 120%;
 }
 
-input {
+input,
+textarea {
     font-family: 'Ubuntu Mono Regular', monospace;
     font-size: 1rem;
     outline: none;
@@ -39,6 +40,59 @@ main {
     flex-direction: column;
     justify-content: flex-start;
     width: 100vw;
+}
+
+a {
+    color: #67cda8;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+}
+
+a:hover {
+    color: #15ee9f;
+    text-decoration: underline;
+}
+
+.center-me {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.center-me span {
+    border-radius: 0 !important;
+}
+
+#post-content {
+    margin-top: 60px;
+}
+
+#post-content h1,
+.ql-editor h1 {
+    font-size: 1.5rem !important;
+}
+
+#post-content h2,
+.ql-editor h2 {
+    font-size: 1rem !important;
+}
+
+#post-content p {
+    font-size: 1rem;
+}
+
+.ql-editor h1,
+.ql-editor h2 {
+    color: #fff;
+}
+
+#header-img {
+    margin-top: 60px;
+    margin-bottom: 0px;
+}
+
+#admin-margin {
+    margin: 30px auto;
 }
 
 #col-3 {
@@ -57,8 +111,27 @@ main {
 #black-btn:hover {
     transform: none;
     box-shadow: none;
-    background-color: #fff;
+    background-color: #15ee9f;
     color: #1d1d1d;
+}
+
+.flex-inline {
+    width: 100%;
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.not-found {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    /* background-color: red; */
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 ::-moz-selection {
@@ -70,4 +143,52 @@ main {
 ::selection {
     color: #fff;
     background: #67cda8;
+}
+
+/* Quill Styling TODO: Move to another location, wasted loading here for clients */
+.quill {
+    width: calc(100% + 2px);
+    background-color: #343434;
+    color: #fff;
+}
+
+.ql-toolbar {
+    border-color: #1d1d1d !important;
+}
+
+.ql-container {
+    border-color: #1d1d1d !important;
+}
+
+.ql-container:hover {
+    border-color: #15ee9f;
+}
+
+.ql-snow .ql-stroke {
+    stroke: #939393 !important;
+}
+
+.ql-snow .ql-fill {
+    fill: #939393 !important;
+}
+
+.ql-snow.ql-toolbar button:hover {
+    background-color: #15ee9f;
+}
+
+.ql-editor {
+    color: #fff;
+    font-family: 'Ubuntu Mono', monospace;
+    font-size: 1rem;
+    min-height: 600px;
+}
+
+.quill-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.quill-field label {
+    font-size: 0.8rem;
+    font-weight: bold;
 }

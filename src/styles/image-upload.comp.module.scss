@@ -1,0 +1,36 @@
+@import './theme.scss';
+
+.image_upload {
+    background-color: $accent-color;
+    width: 100%;
+    height: 300px;
+    cursor: pointer;
+    border: $border;
+
+    input {
+        display: none;
+    }
+
+    &:hover {
+        background-color: $accent-active-color;
+        box-shadow: $box-shadow;
+    }
+
+    .image {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-position: center;
+        background-size: cover;
+
+        p {
+            color: $dark-bg;
+        }
+
+        span {
+            // margin-top: 5px; // Removes the parent div height resize effect after clicking
+            border-radius: 0 !important; // Little hack to get the PropergateLoader to be squares instead of dots
+        }
+    }
+}

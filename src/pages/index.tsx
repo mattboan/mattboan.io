@@ -71,8 +71,18 @@ function Home({ projects, blogs }: { projects: Project[]; blogs: Blog[] }) {
 }
 
 export async function getStaticProps() {
-    const projects = await client.from('Project').select('*').limit(6);
-    const blogs = await client.from('Blog').select('*').limit(6);
+    const projects = await client
+        .from('Project')
+        .select('*')
+        .not('published', 'is', null)
+        .limit(6);
+    const blogs = await client
+        .from('Blog')
+        .select('*')
+        .not('published', 'is', null)
+        .limit(6);
+
+    // Filter out the published
 
     return {
         props: {

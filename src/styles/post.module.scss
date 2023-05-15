@@ -1,0 +1,29 @@
+@import './theme.scss';
+
+.header_image {
+    width: 100%;
+    height: 500px !important;
+    object-fit: cover !important;
+}
+
+.heading {
+    font-size: 2.5rem;
+    margin-top: 60px;
+}
+
+.sub_heading {
+    font-family: 'Ubuntu Mono', monospace;
+    font-weight: normal;
+}
+
+@media (max-width: $mobile-bp) {
+    .heading {
+        margin-top: 45px;
+        font-size: 2rem;
+        line-height: 120%;
+    }
+
+    .sub_heading {
+        font-size: 1.25rem;
+    }
+}

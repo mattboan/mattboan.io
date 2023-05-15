@@ -1,6 +1,6 @@
 @import './theme.scss';
 
-.input_wrapper {
+.textarea_wrapper {
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -10,14 +10,19 @@
         font-weight: bold;
     }
 
-    input {
+    textarea {
         padding: 15px 15px;
+        min-width: calc(100% - 30px);
+        resize: none;
         color: $light-bg;
         background-color: $dark-alt-bg;
         border: 1px solid $dark-alt-bg;
         transition: all 0.2s ease-in-out;
 
         &:hover {
+            border: 1px solid$accent-active-color;
+        }
+        &:active {
             border: 1px solid$accent-active-color;
         }
     }
