@@ -35,7 +35,10 @@ const Blogs = ({ blogs }: { blogs: Blog[] }) => {
 };
 
 export async function getStaticProps() {
-    const blogs = await client.from('Blog').select('*');
+    const blogs = await client
+        .from('Blog')
+        .select('*')
+        .not('published', 'is', null);
 
     return {
         props: {

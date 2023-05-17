@@ -1,0 +1,33 @@
+@import './theme.scss';
+
+.blog_list_card_item {
+    display: flex;
+    gap: 30px;
+    cursor: pointer;
+    border: solid 1px $dark-bg;
+    padding: 15px;
+    transition: all 0.2s ease-in-out;
+    margin-left: -15px;
+
+    .header_image {
+        background-color: $accent-color;
+        width: 300px;
+        height: 200px;
+        background-position: center;
+        background-size: cover;
+    }
+
+    .right {
+        h2 {
+            font-size: 1rem;
+        }
+
+        p {
+            max-width: 600px;
+        }
+    }
+
+    &:hover {
+        border: solid 1px $accent-active-color;
+    }
+}

@@ -1,12 +1,25 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { client } from '@/utils/supa';
 import { v4 as uuid } from 'uuid';
-import { decode } from 'base64-arraybuffer';
 import formidable from 'formidable';
 import fs from 'fs';
 
 // Get request for getting a single blog
 export default async (req: NextApiRequest, res: NextApiResponse) => {
+    // Add in authentication
+
+    // Get the auth token
+    console.log('Got the auth token: ', req.headers.authorization);
+
+    // We need to grab the bearer token from the request
+    const token = req?.headers?.authorization?.split(' ')?.[1];
+
+    if (!token) return res.status(401).json({ message: 'Invalid token' });
+
+    const { data, error } = await client.auth.getUser(token);
+
+    if (error || !data.user) return res.status(401).send('Unauthorized.');
+
     switch (req.method) {
         case 'GET':
             return handleGetRequest(req, res);
@@ -14,8 +27,35 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             return handlePostRequest(req, res);
         case 'PUT':
             return handlePutRequest(req, res);
+        case 'DELETE':
+            return handleDeleteRequest(req, res);
         default:
             return res.status(500).send('Invalid request method.');
+    }
+};
+
+// DELETE Handler
+const handleDeleteRequest = async (
+    req: NextApiRequest,
+    res: NextApiResponse
+) => {
+    try {
+        // Get the id from the request query
+        const id = req.query.id;
+        if (!id) throw new Error('No id');
+
+        await client.from('Blog').delete().eq('id', id);
+
+        // Need to revalidate pages
+        await res.revalidate(`/blogs/${id}`);
+        await res.revalidate('/blogs');
+        await res.revalidate('/');
+
+        return res.status(200).json({
+            deleted: true,
+        });
+    } catch (err) {
+        return res.status(500).send('Failed to retrieve the blog post');
     }
 };
 
@@ -26,10 +66,7 @@ const handleGetRequest = async (req: NextApiRequest, res: NextApiResponse) => {
         const id = req.query.id;
         if (!id) throw new Error('No id');
 
-        const { data } = await client.from('Blog').select('*').eq('id', id);
-        const blog = data?.[0] ? data[0] : null;
-
-        console.log('Got the blog: ', blog, req.query);
+        const blog = await getBlog(+id);
 
         return res.status(200).json(blog);
     } catch (err) {
@@ -60,24 +97,20 @@ const handlePutRequest = async (req: NextApiRequest, res: NextApiResponse) => {
             })
             .eq('id', id);
 
-        if (error) throw new Error(String(error));
-
-        await res.revalidate('/');
-        await res.revalidate('/blogs');
         await res.revalidate(`/blogs/${id}`);
+        await res.revalidate('/blogs');
+        await res.revalidate('/');
 
         // Return the updated blog
         return res.status(200).json(await getBlog(id));
     } catch (err) {
+        console.error('Failed to PUT blog post: ', err);
         return res.status(500).send('Failed to retrieve the blog post');
     }
 };
 
 // POST Request Handler
 const handlePostRequest = async (req: any, res: NextApiResponse) => {
-    // TODO: Check if the user is authed
-    // Check if all the fields are here
-
     const id = req.query.id;
     if (!id) throw new Error('No id');
 

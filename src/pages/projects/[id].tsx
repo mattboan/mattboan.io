@@ -7,7 +7,7 @@ import { format } from 'date-fns';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import Error from '../error';
+import Error from '../_error';
 import { Footer } from '@/comps/Footer';
 import { SubscribeCta } from '@/comps/SubscribeCta';
 import { Project } from '@/db/project.def';

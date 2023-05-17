@@ -63,6 +63,10 @@ a:hover {
     border-radius: 0 !important;
 }
 
+#error {
+    color: firebrick;
+}
+
 #post-content {
     margin-top: 60px;
 }
@@ -113,6 +117,14 @@ a:hover {
     box-shadow: none;
     background-color: #15ee9f;
     color: #1d1d1d;
+}
+
+.flex-downline {
+    max-width: 200px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .flex-inline {

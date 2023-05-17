@@ -8,21 +8,21 @@ import { format } from 'date-fns';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import Error from '../error';
+import Error from '../_error';
 import { Footer } from '@/comps/Footer';
 import { SubscribeCta } from '@/comps/SubscribeCta';
 
 const BlogPost = ({ blog }: { blog: Blog }) => {
     const router = useRouter();
 
-    if (router.isFallback) {
+    if (router.isFallback || !blog?.published) {
         return <Error />;
     }
 
     return (
         <>
             <Head>
-                <title>void - {blog.heading}</title>
+                <title>void - {blog.heading || 'Blog Post'}</title>
                 <meta name="description" content="TODO" />
                 <meta
                     name="viewport"
@@ -74,17 +74,6 @@ const BlogPost = ({ blog }: { blog: Blog }) => {
     );
 };
 
-export async function getStaticProps({ params }: any) {
-    const { data } = await client.from('Blog').select('*').eq('id', params.id);
-
-    return {
-        props: {
-            blog: data?.[0],
-            revalidate: 60000,
-        },
-    };
-}
-
 export async function getStaticPaths() {
     const { data } = await client
         .from('Blog')
@@ -99,7 +88,18 @@ export async function getStaticPaths() {
 
     return {
         paths,
-        fallback: false,
+        fallback: 'blocking',
+    };
+}
+
+export async function getStaticProps({ params }: any) {
+    const { data } = await client.from('Blog').select('*').eq('id', params.id);
+
+    return {
+        props: {
+            blog: data?.[0] || null,
+            revalidate: 60000,
+        },
     };
 }
 

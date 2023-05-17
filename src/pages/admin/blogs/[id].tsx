@@ -15,6 +15,8 @@ import 'react-quill/dist/quill.snow.css';
 import { set } from 'lodash';
 import Link from 'next/link';
 import { PropagateLoader } from 'react-spinners';
+import { admin_client } from '@/utils/admin_supa';
+import { Session } from '@supabase/supabase-js';
 
 const EditBlog = () => {
     const router = useRouter();
@@ -25,6 +27,7 @@ const EditBlog = () => {
     const [saving, setSaving] = useState(false);
     const [pubbing, setPubbing] = useState(false);
     const [error, setError] = useState('');
+    const [session, setSession] = useState<Session | null>(null!);
 
     // Update the blog object
     const update = (key: string, value: any) => {
@@ -33,6 +36,13 @@ const EditBlog = () => {
             ...blog,
             [key]: value,
         });
+    };
+
+    // Gets the bearer token
+    const getToken = () => {
+        if (!session) return;
+
+        return session.access_token;
     };
 
     // Get the blog post from supa
@@ -45,12 +55,11 @@ const EditBlog = () => {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    // "Authorization": `Bearer: ${token}`
+                    Authorization: `Bearer: ${getToken()}`,
                 },
             });
 
             const temp = await res.json();
-            console.log('Got the temp: ', temp);
 
             setBlog({ ...temp });
         } catch (err) {
@@ -81,7 +90,7 @@ const EditBlog = () => {
                 method: 'POST',
                 body: form_data,
                 headers: {
-                    // "Authorization": `Bearer: ${token}`
+                    Authorization: `Bearer: ${getToken()}`,
                 },
             });
 
@@ -101,6 +110,9 @@ const EditBlog = () => {
         try {
             const res = await fetch(`/api/admin/blogs/${id}`, {
                 method: 'PUT',
+                headers: {
+                    Authorization: `Bearer: ${getToken()}`,
+                },
             });
 
             setBlog(await res.json());
@@ -111,14 +123,46 @@ const EditBlog = () => {
         setPubbing(false);
     };
 
+    // Remove a blog post
+    const removeBlog = async () => {
+        setLoading(true);
+
+        try {
+            const res = await fetch(`/api/admin/blogs/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer: ${getToken()}`,
+                },
+            });
+
+            const { error } = await res.json();
+            if (error) throw new Error(error);
+
+            router.push('/admin/blogs');
+        } catch (err) {
+            console.error('Failed to delete the blog post!', err);
+        }
+
+        setLoading(false);
+    };
+
     useEffect(() => {
         if (id) getBlogPost();
     }, [id]);
 
+    useEffect(() => {
+        admin_client.auth.getSession().then(({ data: { session } }) => {
+            if (!session) router.push('/login');
+            setSession(session);
+        });
+    }, []);
+
+    if (!session) return <>Loading...</>;
+
     return (
         <>
             <Head>
-                <title>void - Edit Blog</title>
+                <title>void - Admin - Edit Blog</title>
                 <meta name="description" content="TODO" />
                 <meta
                     name="viewport"
@@ -131,6 +175,13 @@ const EditBlog = () => {
                 <Section id="admin-margin">
                     <Container>
                         <div className="flex-inline">
+                            <Link
+                                id="error"
+                                onClick={() => removeBlog()}
+                                href={'#'}
+                            >
+                                Delete
+                            </Link>
                             <Link href={`/blogs/${id}`} target="_blank">
                                 View blog
                             </Link>
