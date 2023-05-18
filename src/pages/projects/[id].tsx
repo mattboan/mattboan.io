@@ -15,9 +15,7 @@ import { Project } from '@/db/project.def';
 const ProjectPost = ({ project }: { project: Project }) => {
     const router = useRouter();
 
-    console.log('Got the project: ', project);
-
-    if (router.isFallback) {
+    if (router.isFallback || !project?.published) {
         return <Error />;
     }
 
@@ -35,10 +33,11 @@ const ProjectPost = ({ project }: { project: Project }) => {
             <main>
                 <VoidHeader />
 
-                <Section>
+                <Section id="header-img">
                     <Container>
                         {project.header_img && (
                             <Image
+                                className={styles.header_image}
                                 src={project.header_img}
                                 width={1000}
                                 height={800}
@@ -61,8 +60,14 @@ const ProjectPost = ({ project }: { project: Project }) => {
                     </Container>
                 </Section>
 
-                <Section>
-                    <Container>{project.content || 'test'}</Container>
+                <Section id="post-content">
+                    <Container>
+                        <div
+                            dangerouslySetInnerHTML={{
+                                __html: project.content || '',
+                            }}
+                        ></div>
+                    </Container>
                 </Section>
 
                 <SubscribeCta />
@@ -72,23 +77,6 @@ const ProjectPost = ({ project }: { project: Project }) => {
         </>
     );
 };
-
-export async function getStaticProps({ params }: any) {
-    const { data } = await client
-        .from('Project')
-        .select('*')
-        .eq('id', params.id);
-
-    const not_found = data?.[0] ? false : true;
-
-    return {
-        props: {
-            project: data?.[0],
-            revalidate: 60000,
-        },
-        notFound: not_found,
-    };
-}
 
 export async function getStaticPaths() {
     const { data } = await client
@@ -104,7 +92,21 @@ export async function getStaticPaths() {
 
     return {
         paths,
-        fallback: true,
+        fallback: 'blocking',
+    };
+}
+
+export async function getStaticProps({ params }: any) {
+    const { data } = await client
+        .from('Project')
+        .select('*')
+        .eq('id', params.id);
+
+    return {
+        props: {
+            project: data?.[0] || null,
+            revalidate: 60000,
+        },
     };
 }
 

@@ -60,7 +60,7 @@ const BlogPost = ({ blog }: { blog: Blog }) => {
                     <Container>
                         <div
                             dangerouslySetInnerHTML={{
-                                __html: blog?.content || 'test',
+                                __html: blog?.content || '',
                             }}
                         ></div>
                     </Container>

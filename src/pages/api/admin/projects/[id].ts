@@ -6,7 +6,7 @@ import fs from 'fs';
 
 // Handle incoming requests
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-    // We need to grab the bearer token from the request, and authenticate
+    // We need to grab the bearer token from the request and check if we are authed
     const token = req?.headers?.authorization?.split(' ')?.[1];
     if (!token) return res.status(401).json({ message: 'Invalid token' });
     const { data, error } = await client.auth.getUser(token);
@@ -36,7 +36,7 @@ const handleDeleteRequest = async (
         const id = req.query.id;
         if (!id) throw new Error('No id');
 
-        await client.from('Blog').delete().eq('id', id);
+        await client.from('Project').delete().eq('id', id);
 
         // Need to revalidate pages
         await revalidate(res, +id);
@@ -45,7 +45,7 @@ const handleDeleteRequest = async (
             deleted: true,
         });
     } catch (err) {
-        return res.status(500).send('Failed to retrieve the blog post');
+        return res.status(500).send('Failed to retrieve the project post');
     }
 };
 
@@ -56,11 +56,11 @@ const handleGetRequest = async (req: NextApiRequest, res: NextApiResponse) => {
         const id = req.query.id;
         if (!id) throw new Error('No id');
 
-        const blog = await getBlog(+id);
+        const project = await getProject(+id);
 
-        return res.status(200).json(blog);
+        return res.status(200).json(project);
     } catch (err) {
-        return res.status(500).send('Failed to retrieve the blog post');
+        return res.status(500).send('Failed to retrieve the project post');
     }
 };
 
@@ -70,18 +70,18 @@ const handlePutRequest = async (req: NextApiRequest, res: NextApiResponse) => {
         const id = Number(req.query.id);
         if (!id) throw new Error('No id!');
 
-        // Get the blog
+        // Get the project
         let published: Date | null = new Date();
-        const blog = await getBlog(id);
-        if (!blog) throw new Error('Failed to get the blog');
+        const project = await getProject(id);
+        if (!project) throw new Error('Failed to get the project');
 
-        if (blog.published) {
+        if (project.published) {
             published = null;
         }
 
-        // Update the blog published value
+        // Update the project published value
         const { error } = await client
-            .from('Blog')
+            .from('Project')
             .update({
                 published,
             })
@@ -89,11 +89,10 @@ const handlePutRequest = async (req: NextApiRequest, res: NextApiResponse) => {
 
         await revalidate(res, id);
 
-        // Return the updated blog
-        return res.status(200).json(await getBlog(id));
+        // Return the updated project
+        return res.status(200).json(await getProject(id));
     } catch (err) {
-        console.error('Failed to PUT blog post: ', err);
-        return res.status(500).send('Failed to retrieve the blog post');
+        return res.status(500).send('Failed to retrieve the project post');
     }
 };
 
@@ -117,11 +116,11 @@ const handlePostRequest = async (req: any, res: NextApiResponse) => {
     const { fields, files } = (await formData) as any;
 
     // Get the post we are referring too
-    const blog = await getBlog(id);
+    const project = await getProject(id);
 
-    if (!blog) {
+    if (!project) {
         return res.status(404).json({
-            data: "Couldn't find the blog.",
+            data: "Couldn't find the Project.",
         });
     }
 
@@ -129,18 +128,19 @@ const handlePostRequest = async (req: any, res: NextApiResponse) => {
     if (files && files?.header_img) {
         console.log('File was provided!', files);
         // Just get the one file
-        blog.header_img = await uploadHeaderImage(files);
+        project.header_img = await uploadHeaderImage(files);
     }
 
-    await client.from('Blog').upsert({
-        ...blog,
+    // Update all the fields in supabase
+    await client.from('Project').upsert({
+        ...project,
         ...fields,
     });
 
     await revalidate(res, id);
 
-    // Return the new blog
-    return res.status(201).json(await getBlog(id));
+    // Return the new project
+    return res.status(201).json(await getProject(id));
 };
 
 // This function uploads the header image to the supabase bucket
@@ -149,7 +149,7 @@ const uploadHeaderImage = async (image: any) => {
 
     const { data, error } = await client.storage
         .from('header_img')
-        .upload(`blog-${uuid()}.${image.header_img.name}`, file_content, {
+        .upload(`project-${uuid()}.${image.header_img.name}`, file_content, {
             contentType: image.header_img.mimetype,
             cacheControl: '3600',
         });
@@ -164,23 +164,21 @@ export const config = {
     },
 };
 
-// This function returns a blog
-const getBlog = async (id: number) => {
-    const { data } = await client.from('Blog').select('*').eq('id', id);
-    const blog = data?.[0] ? data[0] : null;
-
-    return blog;
+// This function returns a project
+const getProject = async (id: number) => {
+    const { data } = await client.from('Project').select('*').eq('id', id);
+    return data?.[0] ? data[0] : null;
 };
 
 // Revalidate all the pages associated with the projects
 const revalidate = async (res: NextApiResponse, id?: number) => {
     await res.revalidate('/');
     console.log("Revalidated '/'");
-    await res.revalidate('/blogs');
-    console.log("Revalidated '/blogs'");
+    await res.revalidate('/projects');
+    console.log("Revalidated '/projects'");
 
     if (id) {
-        await res.revalidate(`/blogs/${id}`);
-        console.log(`Revalidated '/blogs/${id}'`);
+        await res.revalidate(`/projects/${id}`);
+        console.log(`Revalidated '/projects/${id}'`);
     }
 };

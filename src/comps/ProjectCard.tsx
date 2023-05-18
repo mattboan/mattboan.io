@@ -1,14 +1,17 @@
 import styles from '@/styles/project-card.comp.module.scss';
 import { Project } from '@/db/project.def';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 export const ProjectCard = ({ project }: { project: Project }) => {
+    const router = useRouter();
+
     return (
         <div
             className={styles.project_card}
             tabIndex={0}
             role="link"
-            onClick={() => window.open('test', '_blank')}
+            onClick={() => router.push(`/projects/${project.id}`)}
         >
             <Image
                 src={project.header_img || '/img/tmp.png'}

@@ -37,7 +37,10 @@ const Projects = ({ projects }: { projects: Project[] }) => {
 };
 
 export async function getStaticProps() {
-    const projects = await client.from('Project').select('*');
+    const projects = await client
+        .from('Project')
+        .select('*')
+        .not('published', 'is', null);
 
     return {
         props: {

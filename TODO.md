@@ -5,6 +5,12 @@
     - [X] Login
     - [X] Sessions
     - [X] API Endpoint auth check
-- [] Addin policy rules for the database
-- [] Copy over all functionality from blogs to projects
-
+- [X] Addin policy rules for the database | Policies not needed because we are using admin supabase on API
+    - Actually will need the create open for admin users
+- [X] Copy over all functionality from blogs to projects
+- [] Let's connect section in about me
+- [] Connect lets connect buttons to section in about me
+- [] Fix links to the socials (Footer)
+- [] Do the SEO stuff -> HEAD descriptions, sitemap generation, etc.
+- [] Go over the copy
+- [] Write some projects, and blog posts

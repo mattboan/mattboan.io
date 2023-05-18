@@ -3,8 +3,10 @@ import { BlogListCard } from '@/comps/BlogListCard';
 import { Button } from '@/comps/Button';
 import { Container } from '@/comps/Container';
 import { ListList } from '@/comps/ListList';
+import { ProjectListCard } from '@/comps/ProjectListCard';
 import { Section } from '@/comps/Section';
 import { Blog } from '@/db/blog.def';
+import { Project } from '@/db/project.def';
 import { admin_client } from '@/utils/admin_supa';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -13,8 +15,8 @@ import { useEffect, useState } from 'react';
 import { PropagateLoader } from 'react-spinners';
 
 const OFFSET = 10;
-const DEF_BLOG: Partial<Blog> = {
-    heading: 'Untitled Blog',
+const DEF_PROJECT: Partial<Project> = {
+    heading: 'Untitled Project',
 };
 
 /**
@@ -25,19 +27,19 @@ const ViewBlogs = () => {
     const [page, setPage] = useState(1);
     const [creating, setCreating] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [blogs, setBlogs] = useState<Blog[]>([]);
+    const [projects, setProjects] = useState<Project[]>([]);
     const [error, setError] = useState('');
     const [session, setSession] = useState<any>(null!);
 
-    // Fetch the latest blogs
-    const getBlogs = async () => {
+    // Fetch the latest projects
+    const getProjects = async () => {
         setLoading(true);
 
         const start = (page - 1) * OFFSET;
         const end = start + OFFSET - 1;
 
         const { data, error } = await admin_client
-            .from('Blog')
+            .from('Project')
             .select('*')
             .range(start, end);
 
@@ -46,9 +48,9 @@ const ViewBlogs = () => {
         }
 
         if (page === 1) {
-            setBlogs(data as Blog[]);
+            setProjects(data as Project[]);
         } else {
-            setBlogs([...blogs, ...(data as Blog[])]);
+            setProjects([...projects, ...(data as Project[])]);
         }
 
         setLoading(false);
@@ -59,8 +61,8 @@ const ViewBlogs = () => {
         setCreating(true);
 
         const { data, error } = await admin_client
-            .from('Blog')
-            .insert(DEF_BLOG);
+            .from('Project')
+            .insert(DEF_PROJECT);
 
         setPage(1);
 
@@ -68,17 +70,13 @@ const ViewBlogs = () => {
     };
 
     useEffect(() => {
-        getBlogs();
+        getProjects();
     }, [page]);
 
     useEffect(() => {
         admin_client.auth.getSession().then(({ data: { session } }) => {
             if (!session) router.push('/login');
             setSession(session);
-        });
-
-        admin_client.auth.onAuthStateChange((_event, session) => {
-            if (!session) router.push('/login');
         });
     }, []);
 
@@ -101,8 +99,8 @@ const ViewBlogs = () => {
                 <Section id="admin-margin">
                     <Container>
                         <div className="flex-inline">
-                            <Link href={`/blogs`} target="_blank">
-                                View Blogs
+                            <Link href={`/projects`} target="_blank">
+                                View Projects
                             </Link>
                             <Button onClick={createBlog}>
                                 {creating ? 'Creating...' : 'Create'}
@@ -120,10 +118,10 @@ const ViewBlogs = () => {
                             onBottomClick={() => setPage(page + 1)}
                             loading={loading}
                         >
-                            {blogs.map((blog: Blog, i: number) => (
-                                <BlogListCard
-                                    blog={blog}
-                                    href={`/admin/blogs/${blog.id}`}
+                            {projects.map((project: Project, i: number) => (
+                                <ProjectListCard
+                                    project={project}
+                                    href={`/admin/projects/${project.id}`}
                                     key={i}
                                 />
                             ))}

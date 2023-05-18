@@ -15,11 +15,12 @@ import { PropagateLoader } from 'react-spinners';
 import { admin_client } from '@/utils/admin_supa';
 import { Session } from '@supabase/supabase-js';
 import { Quill, modules, formats } from '@/comps/Quill';
+import { Project } from '@/db/project.def';
 
-const EditBlog = () => {
+const EditProject = () => {
     const router = useRouter();
     const { id } = useRouter().query;
-    const [blog, setBlog] = useState<Blog>(null!);
+    const [project, setProject] = useState<Project>(null!);
     const [header_img_file, setHeaderImageFile] = useState<File>(null!);
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
@@ -27,11 +28,11 @@ const EditBlog = () => {
     const [error, setError] = useState('');
     const [session, setSession] = useState<Session | null>(null!);
 
-    // Update the blog object
+    // Update the project object
     const update = (key: string, value: any) => {
-        if (!blog) return;
-        setBlog({
-            ...blog,
+        if (!project) return;
+        setProject({
+            ...project,
             [key]: value,
         });
     };
@@ -44,12 +45,12 @@ const EditBlog = () => {
     };
 
     // Get the blog post from supa
-    const getBlogPost = async () => {
+    const getProject = async () => {
         setLoading(true);
         setError('');
 
         try {
-            const res = await fetch(`/api/admin/blogs/${id}`, {
+            const res = await fetch(`/api/admin/projects/${id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -59,7 +60,7 @@ const EditBlog = () => {
 
             const temp = await res.json();
 
-            setBlog({ ...temp });
+            setProject({ ...temp });
         } catch (err) {
             setError('Failed to retrieve the blog post.');
         }
@@ -67,8 +68,8 @@ const EditBlog = () => {
         setLoading(false);
     };
 
-    // Save the blog
-    const saveBlogPost = async () => {
+    // Save the Project
+    const saveProject = async () => {
         setSaving(true);
         setError('');
 
@@ -76,15 +77,15 @@ const EditBlog = () => {
             const form_data = new FormData();
 
             // Construct the form data
-            form_data.append('heading', blog.heading || '');
-            form_data.append('sub_heading', blog.sub_heading || '');
-            form_data.append('overview', blog.overview || '');
-            form_data.append('content', blog.content || '');
+            form_data.append('heading', project.heading || '');
+            form_data.append('sub_heading', project.sub_heading || '');
+            form_data.append('overview', project.overview || '');
+            form_data.append('content', project.content || '');
 
             if (header_img_file)
                 form_data.append('header_img', header_img_file);
 
-            const res = await fetch(`/api/admin/blogs/${id}`, {
+            const res = await fetch(`/api/admin/projects/${id}`, {
                 method: 'POST',
                 body: form_data,
                 headers: {
@@ -93,7 +94,7 @@ const EditBlog = () => {
             });
 
             // Refresh the blog post
-            setBlog(await res.json());
+            setProject(await res.json());
         } catch (err) {
             console.error('Failed to save the blog post.');
         }
@@ -101,19 +102,19 @@ const EditBlog = () => {
         setSaving(false);
     };
 
-    // Publish / Unpublish a blog post
+    // Publish / Unpublish a project post
     const pubUnPub = async () => {
         setPubbing(true);
 
         try {
-            const res = await fetch(`/api/admin/blogs/${id}`, {
+            const res = await fetch(`/api/admin/projects/${id}`, {
                 method: 'PUT',
                 headers: {
                     Authorization: `Bearer: ${getToken()}`,
                 },
             });
 
-            setBlog(await res.json());
+            setProject(await res.json());
         } catch (err) {
             console.error('Failed to publish: ', err);
         }
@@ -121,12 +122,12 @@ const EditBlog = () => {
         setPubbing(false);
     };
 
-    // Remove a blog post
-    const removeBlog = async () => {
+    // Remove a project post
+    const removeProject = async () => {
         setLoading(true);
 
         try {
-            const res = await fetch(`/api/admin/blogs/${id}`, {
+            const res = await fetch(`/api/admin/projects/${id}`, {
                 method: 'DELETE',
                 headers: {
                     Authorization: `Bearer: ${getToken()}`,
@@ -136,16 +137,16 @@ const EditBlog = () => {
             const { error } = await res.json();
             if (error) throw new Error(error);
 
-            router.push('/admin/blogs');
+            router.push('/admin/projects');
         } catch (err) {
-            console.error('Failed to delete the blog post!', err);
+            console.error('Failed to delete the preojct post!', err);
         }
 
         setLoading(false);
     };
 
     useEffect(() => {
-        if (session && id) getBlogPost();
+        if (session && id) getProject();
     }, [session, id]);
 
     useEffect(() => {
@@ -175,17 +176,17 @@ const EditBlog = () => {
                         <div className="flex-inline">
                             <Link
                                 id="error"
-                                onClick={() => removeBlog()}
+                                onClick={() => removeProject()}
                                 href={'#'}
                             >
                                 Delete
                             </Link>
-                            <Link href={`/blogs/${id}`} target="_blank">
+                            <Link href={`/projects/${id}`} target="_blank">
                                 View blog
                             </Link>
                             <Button onClick={pubUnPub}>
                                 {!pubbing
-                                    ? blog?.published
+                                    ? project?.published
                                         ? 'Unpublish'
                                         : 'Publish'
                                     : 'Loading...'}
@@ -199,22 +200,22 @@ const EditBlog = () => {
                             <h2>Edit Blog Post</h2>
                             <VerticalForm>
                                 <ImageUpload
-                                    image_url={blog?.header_img || ''}
+                                    image_url={project?.header_img || ''}
                                     onChange={(f) => setHeaderImageFile(f)}
                                 />
                                 <Input
                                     label="Heading"
-                                    value={blog?.heading || ''}
+                                    value={project?.heading || ''}
                                     onChange={(v) => update('heading', v)}
                                 />
                                 <Input
                                     label="Sub Heading"
-                                    value={blog?.sub_heading || ''}
+                                    value={project?.sub_heading || ''}
                                     onChange={(v) => update('sub_heading', v)}
                                 />
                                 <TextArea
                                     label="Overview"
-                                    value={blog?.overview || ''}
+                                    value={project?.overview || ''}
                                     onChange={(v) => update('overview', v)}
                                 />
                                 <div className="quill-field">
@@ -223,13 +224,13 @@ const EditBlog = () => {
                                         theme="snow"
                                         modules={modules}
                                         formats={formats}
-                                        value={blog?.content || ''}
+                                        value={project?.content || ''}
                                         onChange={(e: string) =>
                                             update('content', e)
                                         }
                                     />
                                 </div>
-                                <Button onClick={() => saveBlogPost()}>
+                                <Button onClick={() => saveProject()}>
                                     {saving ? 'Saving...' : 'Save'}
                                 </Button>
                                 {error && (
@@ -252,4 +253,4 @@ const EditBlog = () => {
     );
 };
 
-export default EditBlog;
+export default EditProject;
