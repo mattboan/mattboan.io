@@ -13,12 +13,10 @@ const Projects = ({ projects }: { projects: Project[] }) => {
         <>
             <Head>
                 <title>void - projects</title>
-                <meta name="description" content="TODO" />
                 <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1"
+                    name="description"
+                    content="Explore all the Void projects, including web development, C++ SDL2 Games, and other exciting endeavors. Discover innovative software solutions and dive into creative projects firsthand."
                 />
-                <link rel="icon" href="/favicon.ico" />
             </Head>
 
             <main>

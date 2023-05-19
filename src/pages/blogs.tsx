@@ -11,12 +11,10 @@ const Blogs = ({ blogs }: { blogs: Blog[] }) => {
         <>
             <Head>
                 <title>void - blogs</title>
-                <meta name="description" content="TODO" />
                 <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1"
+                    name="description"
+                    content="Explore a collection of insightful blogs by Matt (Void) covering various topics including web development, software trends, and industry insights. Stay informed and gain valuable knowledge in the world of development."
                 />
-                <link rel="icon" href="/favicon.ico" />
             </Head>
 
             <main>

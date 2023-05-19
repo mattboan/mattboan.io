@@ -43,9 +43,10 @@ export const SubscribeCta = () => {
         <Section>
             <div className={styles.sub_cta}>
                 <h1>Subscribe Now!</h1>
-                <p>
-                    Get notified with the latest projects, blogs, and all things
-                    development.
+                <p style={{ maxWidth: '650px', textAlign: 'center' }}>
+                    Stay ahead with our exclusive updates on cutting-edge
+                    projects, insightful blogs, and everything you need to know
+                    about the world of development.
                 </p>
                 {!loading ? (
                     <>

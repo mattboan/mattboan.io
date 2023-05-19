@@ -9,14 +9,15 @@
     - Actually will need the create open for admin users
 - [X] Copy over all functionality from blogs to projects
 - [X] Let's connect section in about me
-- [] Add in github links to let's connect and also to the footer
-- [] Connect lets connect buttons to section in about me
-- [] Fix links to the socials (Footer)
-- [] Do the SEO stuff -> HEAD descriptions, sitemap generation, etc.
-- [] Go over the copy
+- [X] Add in github links to let's connect and also to the footer
+- [X] Connect lets connect buttons to section in about me
+- [X] Fix links to the socials (Footer)
+- [X] Do the SEO stuff -> HEAD descriptions, sitemap generation, etc.
+- [X] Go over the copy
 - [] Write some projects, and blog posts
-- [] Add Favicon
-- [] Do an overall check
+- [X] Add Favicon
+- [X] Do an overall check
+- [] Launch
 
 Future todos:
 - [] Add in a contact me form

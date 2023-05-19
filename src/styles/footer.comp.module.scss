@@ -43,6 +43,13 @@
             .socials {
                 display: flex;
                 gap: 15px;
+
+                img {
+                    min-width: 20px;
+                    max-width: 20px;
+                    min-height: 20px;
+                    max-height: 20px;
+                }
             }
         }
     }
