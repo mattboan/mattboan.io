@@ -8,11 +8,24 @@
 - [X] Addin policy rules for the database | Policies not needed because we are using admin supabase on API
     - Actually will need the create open for admin users
 - [X] Copy over all functionality from blogs to projects
-- [] Let's connect section in about me
+- [X] Let's connect section in about me
+- [] Add in github links to let's connect and also to the footer
 - [] Connect lets connect buttons to section in about me
 - [] Fix links to the socials (Footer)
 - [] Do the SEO stuff -> HEAD descriptions, sitemap generation, etc.
 - [] Go over the copy
 - [] Write some projects, and blog posts
 - [] Add Favicon
-- [] Do a look over everything
+- [] Do an overall check
+
+Future todos:
+- [] Add in a contact me form
+- [] Add in tags for blogs and projects
+- [] Add in a search bar for whole site (make blazingly fast...)
+- [] Add in code highlighting for Quill
+- [] Create image handler for Quill
+- [] Create image formatting for Quill (max-width, etc.)
+- [] Add in 3D models for Quill
+- [] Implement auto save for blog posts (check out the rate limits for supabase)
+- [] Move away from Quill and just use markup
+- [] Create custom markup parser -> Render statically
