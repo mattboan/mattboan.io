@@ -47,14 +47,14 @@ function Home({ projects, blogs }: { projects: Project[]; blogs: Blog[] }) {
                 </Hero>
 
                 {/* List of 6 projects I'm working on */}
-                <CardList heading="Latest Projects" read_more="/">
+                <CardList heading="Latest Projects" read_more="/projects">
                     {projects.map((project: Project) => (
                         <ProjectCard key={project.id} project={project} />
                     ))}
                 </CardList>
 
                 {/* List of 6 blogs I'm working on */}
-                <CardList heading="Latest Blog Posts" read_more="/">
+                <CardList heading="Latest Blog Posts" read_more="/blogs">
                     {blogs.map((blog: Blog) => (
                         <BlogCard key={blog.id} blog={blog} />
                     ))}
