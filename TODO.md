@@ -14,3 +14,5 @@
 - [] Do the SEO stuff -> HEAD descriptions, sitemap generation, etc.
 - [] Go over the copy
 - [] Write some projects, and blog posts
+- [] Add Favicon
+- [] Do a look over everything

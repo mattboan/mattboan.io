@@ -63,6 +63,11 @@ a:hover {
     border-radius: 0 !important;
 }
 
+#about-me {
+    margin-top: 90px;
+    margin-bottom: 30px;
+}
+
 #error {
     color: firebrick;
 }

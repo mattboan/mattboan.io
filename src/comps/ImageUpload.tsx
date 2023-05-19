@@ -1,5 +1,5 @@
 import styles from '@/styles/image-upload.comp.module.scss';
-import { ChangeEventHandler, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { PropagateLoader } from 'react-spinners';
 
 interface Props {

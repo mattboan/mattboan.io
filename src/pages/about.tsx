@@ -1,3 +1,4 @@
+import { Connect } from '@/comps/Connect';
 import { Container } from '@/comps/Container';
 import { Footer } from '@/comps/Footer';
 import { Section } from '@/comps/Section';
@@ -22,7 +23,7 @@ const About = () => {
                 <VoidHeader />
 
                 {/* Content  */}
-                <Section>
+                <Section id="about-me">
                     <Container>
                         <h1>matt boan</h1>
                         <p id="col-3">
@@ -39,6 +40,8 @@ const About = () => {
                         </p>
                     </Container>
                 </Section>
+
+                <Connect />
 
                 <Footer />
             </main>
