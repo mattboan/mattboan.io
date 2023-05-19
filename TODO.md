@@ -14,12 +14,16 @@
 - [X] Fix links to the socials (Footer)
 - [X] Do the SEO stuff -> HEAD descriptions, sitemap generation, etc.
 - [X] Go over the copy
-- [] Write some projects, and blog posts
 - [X] Add Favicon
 - [X] Do an overall check
-- [] Launch
+- [X] Launch
 
 Future todos:
+- [] Write some projects, and blog posts
+- [] Update README.md 
+- [] Google Analytics
+- [] Revamp the socails
+- [] Include in the SEO about Perth Western Australia 
 - [] Add in a contact me form
 - [] Add in tags for blogs and projects
 - [] Add in a search bar for whole site (make blazingly fast...)
