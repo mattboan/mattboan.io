@@ -5,6 +5,7 @@ import { Button } from './Button';
 import { InlineForm } from './InlineForm';
 import { Input } from './Input';
 import { Section } from './Section';
+import { event } from 'nextjs-google-analytics';
 
 export const SubscribeCta = () => {
     const [error, setError] = useState('');
@@ -28,6 +29,12 @@ export const SubscribeCta = () => {
             // If there is an error throw.
             const { error } = await res.json();
             if (error) throw new Error();
+
+            // Track the event
+            event('submit_form', {
+                category: 'Subscribe',
+                label: `New Subscriber: ${email} `,
+            });
 
             setSubscribed(true);
         } catch (err) {
