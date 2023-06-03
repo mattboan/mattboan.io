@@ -5,6 +5,7 @@ import { ProjectCard } from '@/comps/ProjectCard';
 import { Section } from '@/comps/Section';
 import { VoidHeader } from '@/comps/VoidHeader';
 import { Project } from '@/db/project.def';
+import { get_projects } from '@/utils/projects';
 import { client } from '@/utils/supa';
 import Head from 'next/head';
 
@@ -35,14 +36,11 @@ const Projects = ({ projects }: { projects: Project[] }) => {
 };
 
 export async function getStaticProps() {
-    const projects = await client
-        .from('Project')
-        .select('*')
-        .not('published', 'is', null);
+    const projects = await get_projects();
 
     return {
         props: {
-            projects: projects.data,
+            projects: projects,
         },
     };
 }

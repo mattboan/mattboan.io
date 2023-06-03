@@ -5,7 +5,9 @@ export interface Project {
     heading: string;
     sub_heading: string;
     overview: string;
-    content: string;
+    content?: string;
+    post_content_path?: string;
     published: boolean;
     date: string;
+    slug: string;
 }

@@ -11,7 +11,7 @@ export const ProjectCard = ({ project }: { project: Project }) => {
             className={styles.project_card}
             tabIndex={0}
             role="link"
-            onClick={() => router.push(`/projects/${project.id}`)}
+            onClick={() => router.push(`/projects/${project?.slug}`)}
         >
             <Image
                 src={project.header_img || '/img/tmp.png'}

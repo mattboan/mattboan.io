@@ -13,11 +13,12 @@ import { remark } from 'remark';
 import html from 'remark-html';
 import matter from 'gray-matter';
 import prism from 'remark-prism';
+import { get_project_by_slug, get_projects } from '@/utils/projects';
 
 const ProjectPost = ({ project }: { project: Project }) => {
     const router = useRouter();
 
-    if (router.isFallback || !project?.published) {
+    if (router.isFallback || !project?.published || !project) {
         return <Error />;
     }
 
@@ -73,20 +74,15 @@ const ProjectPost = ({ project }: { project: Project }) => {
 };
 
 export async function getStaticPaths() {
-    const fs = require('fs');
-    const path = require('path');
-
-    const projects_file_path = path.join(
-        process.cwd(),
-        '/projects/projects.json'
-    );
-    const projects = JSON.parse(fs.readFileSync(projects_file_path, 'utf-8'));
+    const projects = await get_projects();
 
     const paths = projects.map((project: any) => ({
         params: {
             slug: project.slug,
         },
     }));
+
+    console.log("Got the paths: ", paths)
 
     return {
         paths,
@@ -101,7 +97,6 @@ export async function getStaticProps({
         slug: string;
     };
 }) {
-    console.log('Got the slug: ', params?.slug);
 
     const fs = require('fs');
     const path = require('path');
@@ -109,42 +104,30 @@ export async function getStaticProps({
     let project = null;
 
     try {
-        const projects_file_path = path.join(
-            process.cwd(),
-            '/projects/projects.json'
-        );
-        const projects = JSON.parse(
-            fs.readFileSync(projects_file_path, 'utf-8')
-        );
+        project = await get_project_by_slug(params?.slug);
 
-        console.log('Got the projects: ', projects);
+        console.log("Got the project: ", project)
 
-        // Try to find the project from the projects
-        project = projects.find((p: any) => p.slug === params?.slug);
-        // if (!project) {
-        //     return {
-        //         notFound: true,
-        //     };
-        // }
+        if (!project) {
+            return {
+                notFound: true,
+            };
+        }
 
         // Get the file path
-        const file_path = path.join(process.cwd(), project.post_content);
+        const file_path = path.join(process.cwd(), project.post_content_path);
         const temp = fs.readFileSync(file_path, 'utf-8');
 
-        // Use gray-matter to parse the post metadata section
         const matter_result = matter(temp);
-
-        // Use remark to convert markdown into HTML string
         const parsed = await remark()
             .use(prism)
             .use(html, { sanitize: false }) // allow all HTML at your own risk
             .process(matter_result.content);
+
         project.content = parsed.toString();
     } catch (err) {
-        console.error('Failed to load the file.');
+        console.error('Failed to load the file.', err);
     }
-
-    console.log('Got the actual project: ', project);
 
     return {
         props: {

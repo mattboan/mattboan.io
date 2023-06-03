@@ -14,6 +14,7 @@ import { SubscribeCta } from '@/comps/SubscribeCta';
 import { Footer } from '@/comps/Footer';
 import { VoidHeader } from '@/comps/VoidHeader';
 import { useRouter } from 'next/router';
+import { get_projects } from '@/utils/projects';
 
 function Home({ projects, blogs }: { projects: Project[]; blogs: Blog[] }) {
     const router = useRouter();
@@ -71,11 +72,9 @@ function Home({ projects, blogs }: { projects: Project[]; blogs: Blog[] }) {
 }
 
 export async function getStaticProps() {
-    const projects = await client
-        .from('Project')
-        .select('*')
-        .not('published', 'is', null)
-        .limit(6);
+
+    const projects = (await get_projects()).slice(0, 6);
+
     const blogs = await client
         .from('Blog')
         .select('*')
@@ -86,7 +85,7 @@ export async function getStaticProps() {
 
     return {
         props: {
-            projects: projects.data,
+            projects: projects,
             blogs: blogs.data,
         },
     };
