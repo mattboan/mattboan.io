@@ -28,6 +28,7 @@ export default function Document() {
                 />
             </Head>
             <body>
+                <script>0</script>
                 <Main />
                 <NextScript />
             </body>
