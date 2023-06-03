@@ -1,10 +1,6 @@
-import styles from '@/styles/Home.module.scss';
 import Head from 'next/head';
-import { Header } from '@/comps/Header';
-import Link from 'next/link';
 import { Button } from '@/comps/Button';
 import { Hero } from '@/comps/Hero';
-import { client } from '@/utils/supa';
 import { Project } from '@/db/project.def';
 import { CardList } from '@/comps/CardList';
 import { ProjectCard } from '@/comps/ProjectCard';

@@ -4,7 +4,6 @@ import { Footer } from '@/comps/Footer';
 import { VoidHeader } from '@/comps/VoidHeader';
 import { Blog } from '@/db/blog.def';
 import { get_blogs } from '@/utils/blogs';
-import { client } from '@/utils/supa';
 import Head from 'next/head';
 
 const Blogs = ({ blogs }: { blogs: Blog[] }) => {

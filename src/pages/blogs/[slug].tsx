@@ -3,8 +3,6 @@ import { Container } from '@/comps/Container';
 import { Section } from '@/comps/Section';
 import { VoidHeader } from '@/comps/VoidHeader';
 import { Blog } from '@/db/blog.def';
-import { client } from '@/utils/supa';
-import { format } from 'date-fns';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
