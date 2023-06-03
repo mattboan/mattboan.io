@@ -82,7 +82,7 @@ export async function getStaticPaths() {
         },
     }));
 
-    console.log("Got the paths: ", paths)
+    console.log('Got the paths: ', paths);
 
     return {
         paths,
@@ -97,7 +97,6 @@ export async function getStaticProps({
         slug: string;
     };
 }) {
-
     const fs = require('fs');
     const path = require('path');
 
@@ -106,7 +105,7 @@ export async function getStaticProps({
     try {
         project = await get_project_by_slug(params?.slug);
 
-        console.log("Got the project: ", project)
+        console.log('Got the project: ', project);
 
         if (!project) {
             return {

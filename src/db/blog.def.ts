@@ -6,5 +6,8 @@ export interface Blog {
     sub_heading: string;
     overview: string;
     content: string;
-    published: Date | null;
+    post_content_path?: string;
+    published: boolean;
+    date: string;
+    slug: string;
 }

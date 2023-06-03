@@ -1,12 +1,9 @@
 import { CardList } from '@/comps/CardList';
-import { Container } from '@/comps/Container';
 import { Footer } from '@/comps/Footer';
 import { ProjectCard } from '@/comps/ProjectCard';
-import { Section } from '@/comps/Section';
 import { VoidHeader } from '@/comps/VoidHeader';
 import { Project } from '@/db/project.def';
 import { get_projects } from '@/utils/projects';
-import { client } from '@/utils/supa';
 import Head from 'next/head';
 
 const Projects = ({ projects }: { projects: Project[] }) => {

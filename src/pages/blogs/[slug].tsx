@@ -11,6 +11,11 @@ import { useRouter } from 'next/router';
 import Error from '../_error';
 import { Footer } from '@/comps/Footer';
 import { SubscribeCta } from '@/comps/SubscribeCta';
+import { get_blogs, get_blog_by_slug } from '@/utils/blogs';
+import matter from 'gray-matter';
+import { remark } from 'remark';
+import html from 'remark-html';
+import prism from 'remark-prism';
 
 const BlogPost = ({ blog }: { blog: Blog }) => {
     const router = useRouter();
@@ -44,8 +49,8 @@ const BlogPost = ({ blog }: { blog: Blog }) => {
                         </h2>
                         {blog.published && (
                             <div className={styles.published}>
-                                {format(new Date(blog.published), 'dd-MM-yyyy')}{' '}
-                                | by <span id="accent">matt boan</span>
+                                {blog.date} | by{' '}
+                                <span id="accent">matt boan</span>
                             </div>
                         )}
                     </Container>
@@ -70,14 +75,11 @@ const BlogPost = ({ blog }: { blog: Blog }) => {
 };
 
 export async function getStaticPaths() {
-    const { data } = await client
-        .from('Blog')
-        .select('id')
-        .not('published', 'is', null);
+    const blogs = await get_blogs();
 
-    const paths = data?.map((blog) => ({
+    const paths = await blogs.map((blog: Blog) => ({
         params: {
-            id: String(blog.id),
+            slug: blog.slug,
         },
     }));
 
@@ -88,11 +90,38 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }: any) {
-    const { data } = await client.from('Blog').select('*').eq('id', params.id);
+    const fs = require('fs');
+    const path = require('path');
+
+    let blog = null;
+
+    try {
+        blog = await get_blog_by_slug(params?.slug);
+
+        if (!blog) {
+            return {
+                notFound: true,
+            };
+        }
+
+        // Get the file path
+        const file_path = path.join(process.cwd(), blog.post_content_path);
+        const temp = fs.readFileSync(file_path, 'utf-8');
+
+        const matter_result = matter(temp);
+        const parsed = await remark()
+            .use(prism)
+            .use(html, { sanitize: false }) // allow all HTML at your own risk
+            .process(matter_result.content);
+
+        blog.content = parsed.toString();
+    } catch (err) {
+        console.error('Failed to load the file.', err);
+    }
 
     return {
         props: {
-            blog: data?.[0] || null,
+            blog: blog,
             revalidate: 60000,
         },
     };

@@ -1,0 +1,13 @@
+[
+    {
+        "id": 1,
+        "slug": "my-dream-setup-arch-lunux-i3",
+        "date": "19-05-2023",
+        "heading": "My Dream Setup - Arch Linux | i3",
+        "overview": "Deep dive into my Arch Linux setup to see how I get it done.",
+        "sub_heading": "Deep dive into my Arch Linux setup to see how I get it done.",
+        "header_img": "/img/my-dream-setup-arch-lunux-i3/header-img.webp",
+        "post_content_path": "/blogs/posts/1.md",
+        "published": true
+    }
+]

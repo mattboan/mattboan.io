@@ -3,6 +3,7 @@ import { CardList } from '@/comps/CardList';
 import { Footer } from '@/comps/Footer';
 import { VoidHeader } from '@/comps/VoidHeader';
 import { Blog } from '@/db/blog.def';
+import { get_blogs } from '@/utils/blogs';
 import { client } from '@/utils/supa';
 import Head from 'next/head';
 
@@ -33,14 +34,11 @@ const Blogs = ({ blogs }: { blogs: Blog[] }) => {
 };
 
 export async function getStaticProps() {
-    const blogs = await client
-        .from('Blog')
-        .select('*')
-        .not('published', 'is', null);
+    const blogs = await get_blogs();
 
     return {
         props: {
-            blogs: blogs.data,
+            blogs: blogs,
         },
     };
 }

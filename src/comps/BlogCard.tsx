@@ -11,7 +11,7 @@ export const BlogCard = ({ blog }: { blog: Blog }) => {
             className={styles.blog_card}
             tabIndex={0}
             role="link"
-            onClick={() => router.push(`/blogs/${blog.id}`)}
+            onClick={() => router.push(`/blogs/${blog?.slug}`)}
         >
             <Image
                 src={blog.header_img || '/img/tmp.png'}

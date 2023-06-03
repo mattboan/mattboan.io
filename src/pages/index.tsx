@@ -15,6 +15,7 @@ import { Footer } from '@/comps/Footer';
 import { VoidHeader } from '@/comps/VoidHeader';
 import { useRouter } from 'next/router';
 import { get_projects } from '@/utils/projects';
+import { get_blogs } from '@/utils/blogs';
 
 function Home({ projects, blogs }: { projects: Project[]; blogs: Blog[] }) {
     const router = useRouter();
@@ -72,21 +73,15 @@ function Home({ projects, blogs }: { projects: Project[]; blogs: Blog[] }) {
 }
 
 export async function getStaticProps() {
-
-    const projects = (await get_projects()).slice(0, 6);
-
-    const blogs = await client
-        .from('Blog')
-        .select('*')
-        .not('published', 'is', null)
-        .limit(6);
+    const projects = (await get_projects()).slice(-6);
+    const blogs = (await get_blogs()).slice(-6);
 
     // Filter out the published
 
     return {
         props: {
             projects: projects,
-            blogs: blogs.data,
+            blogs: blogs,
         },
     };
 }
