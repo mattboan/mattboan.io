@@ -1,36 +1,36 @@
-
-- [X] Blogs list
-- [X] Unpublish 
-- [X] Authentication
-    - [X] Login
-    - [X] Sessions
-    - [X] API Endpoint auth check
-- [X] Addin policy rules for the database | Policies not needed because we are using admin supabase on API
-    - Actually will need the create open for admin users
-- [X] Copy over all functionality from blogs to projects
-- [X] Let's connect section in about me
-- [X] Add in github links to let's connect and also to the footer
-- [X] Connect lets connect buttons to section in about me
-- [X] Fix links to the socials (Footer)
-- [X] Do the SEO stuff -> HEAD descriptions, sitemap generation, etc.
-- [X] Go over the copy
-- [X] Add Favicon
-- [X] Do an overall check
-- [X] Launch
+-   [x] Blogs list
+-   [x] Unpublish
+-   [x] Authentication
+    -   [x] Login
+    -   [x] Sessions
+    -   [x] API Endpoint auth check
+-   [x] Addin policy rules for the database | Policies not needed because we are using admin supabase on API
+    -   Actually will need the create open for admin users
+-   [x] Copy over all functionality from blogs to projects
+-   [x] Let's connect section in about me
+-   [x] Add in github links to let's connect and also to the footer
+-   [x] Connect lets connect buttons to section in about me
+-   [x] Fix links to the socials (Footer)
+-   [x] Do the SEO stuff -> HEAD descriptions, sitemap generation, etc.
+-   [x] Go over the copy
+-   [x] Add Favicon
+-   [x] Do an overall check
+-   [x] Launch
 
 Future todos:
-- [] Write some projects, and blog posts
-- [] Update README.md 
-- [] Google Analytics
-- [] Revamp the socails
-- [] Include in the SEO about Perth Western Australia 
-- [] Add in a contact me form
-- [] Add in tags for blogs and projects
-- [] Add in a search bar for whole site (make blazingly fast...)
-- [] Add in code highlighting for Quill
-- [] Create image handler for Quill
-- [] Create image formatting for Quill (max-width, etc.)
-- [] Add in 3D models for Quill
-- [] Implement auto save for blog posts (check out the rate limits for supabase)
-- [] Move away from Quill and just use markup
-- [] Create custom markup parser -> Render statically
+
+-   [] Write some projects, and blog posts
+-   [] Update README.md
+-   [x] Google Analytics
+-   [] Revamp the socails
+-   [] Include in the SEO about Perth Western Australia
+-   [] Add in a contact me form
+-   [] Add in tags for blogs and projects
+-   [] Add in a search bar for whole site (make blazingly fast...)
+-   [] Add in code highlighting for Quill
+-   [] Create image handler for Quill
+-   [] Create image formatting for Quill (max-width, etc.)
+-   [] Add in 3D models for Quill
+-   [] Implement auto save for blog posts (check out the rate limits for supabase)
+-   [] Move away from Quill and just use markup
+-   [] Create custom markup parser -> Render statically
