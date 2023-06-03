@@ -2,8 +2,6 @@ import styles from '@/styles/post.module.scss';
 import { Container } from '@/comps/Container';
 import { Section } from '@/comps/Section';
 import { VoidHeader } from '@/comps/VoidHeader';
-import { client } from '@/utils/supa';
-import { format } from 'date-fns';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -14,6 +12,7 @@ import { Project } from '@/db/project.def';
 import { remark } from 'remark';
 import html from 'remark-html';
 import matter from 'gray-matter';
+import prism from 'remark-prism';
 
 const ProjectPost = ({ project }: { project: Project }) => {
     const router = useRouter();
@@ -48,11 +47,8 @@ const ProjectPost = ({ project }: { project: Project }) => {
                         </h2>
                         {project.published && (
                             <div className={styles.published}>
-                                {format(
-                                    new Date(project.published),
-                                    'dd-MM-yyyy'
-                                )}{' '}
-                                | by <span id="accent">matt boan</span>
+                                {project.date} | by{' '}
+                                <span id="accent">matt boan</span>
                             </div>
                         )}
                     </Container>
@@ -76,12 +72,14 @@ const ProjectPost = ({ project }: { project: Project }) => {
     );
 };
 
-
 export async function getStaticPaths() {
     const fs = require('fs');
     const path = require('path');
 
-    const projects_file_path = path.join(process.cwd(), '/projects/projects.json');
+    const projects_file_path = path.join(
+        process.cwd(),
+        '/projects/projects.json'
+    );
     const projects = JSON.parse(fs.readFileSync(projects_file_path, 'utf-8'));
 
     const paths = projects.map((project: any) => ({
@@ -96,13 +94,14 @@ export async function getStaticPaths() {
     };
 }
 
-export async function getStaticProps({ params }: {
+export async function getStaticProps({
+    params,
+}: {
     params: {
-        slug: string
-    }
+        slug: string;
+    };
 }) {
-
-    console.log("Got the slug: ", params?.slug)
+    console.log('Got the slug: ', params?.slug);
 
     const fs = require('fs');
     const path = require('path');
@@ -110,10 +109,15 @@ export async function getStaticProps({ params }: {
     let project = null;
 
     try {
-        const projects_file_path = path.join(process.cwd(), '/projects/projects.json');
-        const projects = JSON.parse(fs.readFileSync(projects_file_path, 'utf-8'));
+        const projects_file_path = path.join(
+            process.cwd(),
+            '/projects/projects.json'
+        );
+        const projects = JSON.parse(
+            fs.readFileSync(projects_file_path, 'utf-8')
+        );
 
-        console.log("Got the projects: ", projects)
+        console.log('Got the projects: ', projects);
 
         // Try to find the project from the projects
         project = projects.find((p: any) => p.slug === params?.slug);
@@ -131,16 +135,16 @@ export async function getStaticProps({ params }: {
         const matter_result = matter(temp);
 
         // Use remark to convert markdown into HTML string
-        const processedContent = await remark()
-            .use(html)
+        const parsed = await remark()
+            .use(prism)
+            .use(html, { sanitize: false }) // allow all HTML at your own risk
             .process(matter_result.content);
-        project.content = processedContent.toString();
-
+        project.content = parsed.toString();
     } catch (err) {
-        console.error("Failed to load the file.");
+        console.error('Failed to load the file.');
     }
 
-    console.log("Got the actual project: ", project)
+    console.log('Got the actual project: ', project);
 
     return {
         props: {

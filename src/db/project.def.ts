@@ -6,5 +6,6 @@ export interface Project {
     sub_heading: string;
     overview: string;
     content: string;
-    published: Date | null;
+    published: boolean;
+    date: string;
 }

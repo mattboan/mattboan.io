@@ -2,7 +2,7 @@
 
 .header_image {
     width: 100%;
-    height: 500px !important;
+    height: 700px !important;
     object-fit: cover !important;
 }
 
@@ -17,6 +17,10 @@
 }
 
 @media (max-width: $mobile-bp) {
+    .header_image {
+        height: unset !important;
+    }
+
     .heading {
         margin-top: 45px;
         font-size: 2rem;
