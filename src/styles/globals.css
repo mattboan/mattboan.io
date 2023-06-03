@@ -53,6 +53,15 @@ a:hover {
     text-decoration: underline;
 }
 
+code {
+    background: #232323;
+    padding: 15px;
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 0.8rem;
+}
+
 .center-me {
     display: flex;
     justify-content: center;

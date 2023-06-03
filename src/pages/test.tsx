@@ -35,8 +35,10 @@ export async function getServerSideProps() {
     const fs = require('fs');
     const path = require('path');
 
+
+
     // Get the file path
-    const file_path = path.join(process.cwd(), 'projects/1.md');
+    const file_path = path.join(process.cwd(), '/projects/posts/1.md');
 
     // Read the file contents
     const file = fs.readFileSync(file_path, 'utf-8');

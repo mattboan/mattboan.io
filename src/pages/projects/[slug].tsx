@@ -11,6 +11,9 @@ import Error from '../_error';
 import { Footer } from '@/comps/Footer';
 import { SubscribeCta } from '@/comps/SubscribeCta';
 import { Project } from '@/db/project.def';
+import { remark } from 'remark';
+import html from 'remark-html';
+import matter from 'gray-matter';
 
 const ProjectPost = ({ project }: { project: Project }) => {
     const router = useRouter();
@@ -59,7 +62,7 @@ const ProjectPost = ({ project }: { project: Project }) => {
                     <Container>
                         <div
                             dangerouslySetInnerHTML={{
-                                __html: project.content || '',
+                                __html: project?.content || '',
                             }}
                         ></div>
                     </Container>
@@ -73,15 +76,17 @@ const ProjectPost = ({ project }: { project: Project }) => {
     );
 };
 
-export async function getStaticPaths() {
-    const { data } = await client
-        .from('Project')
-        .select('id')
-        .not('published', 'is', null);
 
-    const paths = data?.map((project) => ({
+export async function getStaticPaths() {
+    const fs = require('fs');
+    const path = require('path');
+
+    const projects_file_path = path.join(process.cwd(), '/projects/projects.json');
+    const projects = JSON.parse(fs.readFileSync(projects_file_path, 'utf-8'));
+
+    const paths = projects.map((project: any) => ({
         params: {
-            id: String(project.id),
+            slug: project.slug,
         },
     }));
 
@@ -91,15 +96,55 @@ export async function getStaticPaths() {
     };
 }
 
-export async function getStaticProps({ params }: any) {
-    const { data } = await client
-        .from('Project')
-        .select('*')
-        .eq('id', params.id);
+export async function getStaticProps({ params }: {
+    params: {
+        slug: string
+    }
+}) {
+
+    console.log("Got the slug: ", params?.slug)
+
+    const fs = require('fs');
+    const path = require('path');
+
+    let project = null;
+
+    try {
+        const projects_file_path = path.join(process.cwd(), '/projects/projects.json');
+        const projects = JSON.parse(fs.readFileSync(projects_file_path, 'utf-8'));
+
+        console.log("Got the projects: ", projects)
+
+        // Try to find the project from the projects
+        project = projects.find((p: any) => p.slug === params?.slug);
+        // if (!project) {
+        //     return {
+        //         notFound: true,
+        //     };
+        // }
+
+        // Get the file path
+        const file_path = path.join(process.cwd(), project.post_content);
+        const temp = fs.readFileSync(file_path, 'utf-8');
+
+        // Use gray-matter to parse the post metadata section
+        const matter_result = matter(temp);
+
+        // Use remark to convert markdown into HTML string
+        const processedContent = await remark()
+            .use(html)
+            .process(matter_result.content);
+        project.content = processedContent.toString();
+
+    } catch (err) {
+        console.error("Failed to load the file.");
+    }
+
+    console.log("Got the actual project: ", project)
 
     return {
         props: {
-            project: data?.[0] || null,
+            project: project,
             revalidate: 60000,
         },
     };
