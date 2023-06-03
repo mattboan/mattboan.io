@@ -12,7 +12,7 @@ export const Connect = () => (
             <p>Find me on all the usual channels.</p>
             <div className={styles.socails}>
                 <Link
-                    href="https://www.instagram.com/voidstudios.com.au/"
+                    href="https://www.github.com/mattboan/"
                     className={styles.socail}
                     target="_blank"
                 >
