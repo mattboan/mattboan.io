@@ -9,5 +9,16 @@
         "header_img": "/img/my-dream-setup-arch-lunux-i3/header-img.webp",
         "post_content_path": "/blogs/posts/1.md",
         "published": true
+    },
+    {
+        "id": 2,
+        "slug": "hydroponic-chillis",
+        "date": "20-06-2023",
+        "heading": "Growing Hydroponic Chilli's",
+        "overview": "Hacking nature hot fast. How I grow hot chilli's quick and easy.",
+        "sub_heading": "Hacking nature hot fast.",
+        "header_img": "/img/hydro-chilli/header_img.jpg",
+        "post_content_path": "/blogs/posts/2.md",
+        "published": true
     }
 ]
