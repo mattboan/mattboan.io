@@ -9,5 +9,16 @@
         "header_img": "/img/pcd8544-lcd-driver-esp-32/header-img.webp",
         "post_content_path": "/projects/posts/1.md",
         "published": true
+    },
+    {
+        "id": 2,
+        "slug": "test",
+        "date": "07-07-23",
+        "heading": "Nokia Cube | Retro Desktop Notification Center",
+        "sub_heading": "Small retro desktop notification hub using old Nokia 5110 LCD display.",
+        "overview": "Small retro desktop notification hub using old Nokia 5110 LCD display.",
+        "header_img": "/img/nokia-cube/nc-header-img.jpg",
+        "post_content_path": "/projects/posts/2.md",
+        "published": true
     }
 ]

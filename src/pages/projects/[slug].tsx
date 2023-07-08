@@ -105,6 +105,7 @@ export async function getStaticProps({
     try {
         project = await get_project_by_slug(params?.slug);
 
+
         console.log('Got the project: ', project);
 
         if (!project) {

@@ -39,6 +39,8 @@ export const get_project_by_slug = async (
     slug: string
 ): Promise<Project | null> => {
     try {
+        console.log("Trying to get the project: ", slug);
+
         const projects = await get_projects();
         return projects.find((project) => project.slug === slug) || null;
     } catch (err) {

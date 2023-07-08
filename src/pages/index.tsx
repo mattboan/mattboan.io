@@ -12,6 +12,9 @@ import { VoidHeader } from '@/comps/VoidHeader';
 import { useRouter } from 'next/router';
 import { get_projects } from '@/utils/projects';
 import { get_blogs } from '@/utils/blogs';
+import { Section } from '@/comps/Section';
+import { Container } from '@/comps/Container';
+import { ModelViewer } from '@/comps/ModelViewer';
 
 function Home({ projects, blogs }: { projects: Project[]; blogs: Blog[] }) {
     const router = useRouter();
@@ -28,6 +31,13 @@ function Home({ projects, blogs }: { projects: Project[]; blogs: Blog[] }) {
             <main>
                 {/* Header */}
                 <VoidHeader />
+
+                {/* <Section>
+                    <Container>
+                        <div>3D Model Test</div>
+                        <ModelViewer url="http://localhost:3000/models/pika.stl" />
+                    </Container>
+                </Section> */}
 
                 {/* Hero Section */}
                 <Hero>
