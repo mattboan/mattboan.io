@@ -14,6 +14,7 @@ import html from 'remark-html';
 import matter from 'gray-matter';
 import prism from 'remark-prism';
 import { get_project_by_slug, get_projects } from '@/utils/projects';
+import remarkGfm from 'remark-gfm'
 
 const ProjectPost = ({ project }: { project: Project }) => {
     const router = useRouter();
@@ -121,6 +122,7 @@ export async function getStaticProps({
         const matter_result = matter(temp);
         const parsed = await remark()
             .use(prism)
+            .use(remarkGfm)
             .use(html, { sanitize: false }) // allow all HTML at your own risk
             .process(matter_result.content);
 

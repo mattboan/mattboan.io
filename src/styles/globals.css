@@ -244,3 +244,24 @@ code {
     margin-left: auto;
     margin-right: auto;
 }
+
+/* CSS for the table */
+table {
+    width: fit-content;
+    border-collapse: collapse;
+    background-color: #343434; /* Light grey background color */
+    margin-bottom: 60px;
+}
+
+table,
+th,
+td {
+    border: 1px solid #d3d3d3; /* Light grey outlines */
+    padding: 15px; /* Add some padding around content */
+}
+
+/* Optional: Center align text in table cells */
+th,
+td {
+    text-align: center;
+}

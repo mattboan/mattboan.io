@@ -6,9 +6,9 @@
         "heading": "PCD8544 LCD Driver | ESP32 IDF",
         "overview": "Diving into the world of bits and pixels, bringing old tech back to life.",
         "sub_heading": "Diving into the world of bits and pixels, bringing old tech back to life.",
-        "header_img": "/img/pcd8544-lcd-driver-esp-32/header-img.webp",
+        "header_img": "/img/pcd8544-lcd-driver-esp-32/header2.jpg",
         "post_content_path": "/projects/posts/1.md",
-        "published": false
+        "published": true
     },
     {
         "id": 2,
